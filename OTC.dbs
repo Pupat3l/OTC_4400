@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="OTC_db" id="Project-20bb" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="OTC_db" >
+		<table name="Date" prior="Entity" >
+			<column name="DateID" type="INT" jt="4" mandatory="y" />
+			<column name="ClosingInsideBidPriceDate" type="DATE" jt="91" />
+			<column name="ClosingInsideAskPriceDate" type="DATE" jt="91" />
+			<column name="PreviousCloseDate" type="DATE" jt="91" />
+			<column name="ClosingBestBidDate" type="DATE" jt="91" />
+			<column name="ClosingBestAskDate" type="DATE" jt="91" />
+			<column name="ShortInterestDate" type="DATE" jt="91" />
+			<index name="pk_Date" unique="PRIMARY_KEY" >
+				<column name="DateID" />
+			</index>
+			<fk name="fk_date_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="DateID" pk="DateID" />
+			</fk>
+		</table>
+		<table name="FactsTable" prior="Entity" >
+			<column name="SECID" type="INT" jt="4" mandatory="y" />
+			<column name="VenueID" type="INT" jt="4" mandatory="y" />
+			<column name="TierID" type="INT" jt="4" mandatory="y" />
+			<column name="SourceID" type="INT" jt="4" mandatory="y" />
+			<column name="DateID" type="INT" jt="4" mandatory="y" />
+			<column name="StatusID" type="INT" jt="4" mandatory="y" />
+			<column name="ClosingInsideBidPrice" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<column name="ClosingInsideAskPrice" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<column name="ClosingMidPrice" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<column name="InsideBid_AskMidPrice" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<column name="OpenPrice" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<column name="HighPrice" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<column name="LowPrice" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<column name="LastPrice" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<column name="PreviousClosePrice" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<column name="ShareVolume" type="INT" jt="4" />
+			<column name="DollarVolume" type="DECIMAL" length="30" decimal="20" jt="3" />
+			<column name="TradeCount" type="INT" jt="4" />
+			<column name="OTCLinkDolVol" type="DECIMAL" length="30" decimal="20" jt="3" />
+			<column name="OTCLinkShareVol" type="BIGINT" jt="-5" />
+			<column name="OTCLinkExecCount" type="INT" jt="4" />
+			<column name="ShortIntVol" type="INT" jt="4" />
+			<column name="MMIDCount" type="INT" jt="4" />
+			<column name="BFCMmid" type="INT" jt="4" />
+			<column name="ClosingBestBid" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<column name="ClosingBestAsk" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<index name="pk_FactsTable" unique="PRIMARY_KEY" >
+				<column name="SECID" />
+			</index>
+			<index name="unq_TierID" unique="UNIQUE_INDEX" >
+				<column name="TierID" />
+			</index>
+			<index name="unq_VenueID" unique="UNIQUE_INDEX" >
+				<column name="VenueID" />
+			</index>
+			<index name="unq_SourceID" unique="UNIQUE_INDEX" >
+				<column name="SourceID" />
+			</index>
+			<index name="unq_StatusID" unique="UNIQUE_INDEX" >
+				<column name="StatusID" />
+			</index>
+			<index name="unq_DateID" unique="UNIQUE_INDEX" >
+				<column name="DateID" />
+			</index>
+		</table>
+		<table name="Security" prior="Entity" >
+			<column name="SECID" type="INT" jt="4" mandatory="y" />
+			<column name="TradingSymbol" type="CHAR" length="10" jt="1" mandatory="y" />
+			<column name="CUSIP" type="CHAR" length="9" jt="1" />
+			<column name="Issue" type="CHAR" length="9" jt="1" />
+			<column name="SecType" type="VARCHAR" length="75" jt="12" />
+			<column name="Trading" type="CHAR" length="20" jt="1" />
+			<column name="Class" type="CHAR" length="1" jt="1" />
+			<column name="CompID" type="INT" jt="4" />
+			<column name="CaveatEmptor" type="CHAR" length="1" jt="1" />
+			<column name="SharesOutstanding" type="DECIMAL" length="16" decimal="1" jt="3" />
+			<column name="SharesOutstandingAsOfDate" type="DATE" jt="91" />
+			<index name="pk_Security" unique="PRIMARY_KEY" >
+				<column name="SECID" />
+			</index>
+			<index name="unq_SECID" unique="UNIQUE_INDEX" >
+				<column name="SECID" />
+			</index>
+			<fk name="fk_security_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="SECID" pk="SECID" />
+			</fk>
+		</table>
+		<table name="Source" prior="Entity" >
+			<column name="SourceID" type="INT" jt="4" mandatory="y" />
+			<column name="ClosingBestBidSource" type="VARCHAR" length="25" jt="12" />
+			<column name="ClosingBestAskSource" type="VARCHAR" length="25" jt="12" />
+			<column name="BestBidSource" type="VARCHAR" length="25" jt="12" />
+			<column name="BestAskSource" type="VARCHAR" length="25" jt="12" />
+			<index name="pk_Source" unique="PRIMARY_KEY" >
+				<column name="SourceID" />
+			</index>
+			<fk name="fk_source_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="SourceID" pk="SourceID" />
+			</fk>
+		</table>
+		<table name="Status" prior="Entity" >
+			<column name="StatusID" type="INT" jt="4" mandatory="y" />
+			<column name="SecurityStatus" type="VARCHAR" length="20" jt="12" />
+			<column name="Rule3210Flag" type="CHAR" length="1" jt="1" />
+			<column name="SHOFlag" type="CHAR" length="1" jt="1" />
+			<index name="pk_Status" unique="PRIMARY_KEY" >
+				<column name="StatusID" />
+			</index>
+			<fk name="fk_status_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="StatusID" pk="StatusID" />
+			</fk>
+		</table>
+		<table name="Tier" prior="Entity" >
+			<column name="TierID" type="INT" jt="4" mandatory="y" />
+			<column name="TierName" type="VARCHAR" length="100" jt="12" />
+			<column name="DAD_PAL" type="VARCHAR" length="75" jt="12" />
+			<index name="pk_Tier" unique="PRIMARY_KEY" >
+				<column name="TierID" />
+			</index>
+			<fk name="fk_tier_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="TierID" pk="TierID" />
+			</fk>
+		</table>
+		<table name="Venue" prior="Entity" >
+			<column name="VenueID" type="INT" jt="4" mandatory="y" />
+			<index name="pk_Venue" unique="PRIMARY_KEY" >
+				<column name="VenueID" />
+			</index>
+			<fk name="fk_venue_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="VenueID" pk="VenueID" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-2082" show_relation="columns" >
+		<callout x="51" y="51" pointer="Round" >
+			<comment><![CDATA[This is a layout - a diagram with tools.
+- Create new entities by right-clicking the layout. 
+- Double-click entity headers to edit.
+- For a better understanding of the schema, create multiple layouts.
+- Deploy the model into the database by converting it first to the physical design.]]></comment>
+		</callout>
+	</layout>
+	<layout name="OTC" id="Layout-fe5" show_relation="columns" >
+		<entity schema="OTC_db.INSTANCE" name="Date" color="C1D8EE" x="68" y="408" />
+		<entity schema="OTC_db.INSTANCE" name="FactsTable" color="C1D8EE" x="391" y="306" />
+		<entity schema="OTC_db.INSTANCE" name="Security" color="C1D8EE" x="51" y="85" />
+		<entity schema="OTC_db.INSTANCE" name="Source" color="C1D8EE" x="680" y="289" />
+		<entity schema="OTC_db.INSTANCE" name="Status" color="C1D8EE" x="714" y="527" />
+		<entity schema="OTC_db.INSTANCE" name="Tier" color="C1D8EE" x="731" y="51" />
+		<entity schema="OTC_db.INSTANCE" name="Venue" color="C1D8EE" x="374" y="102" />
+	</layout>
+</project>
