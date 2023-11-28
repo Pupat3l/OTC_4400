@@ -3,25 +3,22 @@
 	<schema name="INSTANCE" catalogname="OTC_db" >
 		<table name="Date" prior="Entity" >
 			<column name="DateID" type="INT" jt="4" mandatory="y" />
-			<column name="ClosingInsideBidPriceDate" type="DATE" jt="91" />
-			<column name="ClosingInsideAskPriceDate" type="DATE" jt="91" />
-			<column name="PreviousCloseDate" type="DATE" jt="91" />
-			<column name="ClosingBestBidDate" type="DATE" jt="91" />
-			<column name="ClosingBestAskDate" type="DATE" jt="91" />
-			<column name="ShortInterestDate" type="DATE" jt="91" />
+			<column name="Hour" prior="ClosingInsideBidPriceDate" type="DATE" jt="91" />
+			<column name="Day" prior="ClosingInsideAskPriceDate" type="DATE" jt="91" />
+			<column name="Month" prior="PreviousCloseDate" type="DATE" jt="91" />
+			<column name="Year" prior="ClosingBestBidDate" type="DATE" jt="91" />
 			<index name="pk_Date" unique="PRIMARY_KEY" >
 				<column name="DateID" />
 			</index>
-			<fk name="fk_date_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
-				<fk_column name="DateID" pk="DateID" />
-			</fk>
+			<index name="unq_DateID" unique="UNIQUE_INDEX" >
+				<column name="DateID" />
+			</index>
 		</table>
 		<table name="FactsTable" prior="Entity" >
 			<column name="SECID" type="INT" jt="4" mandatory="y" />
 			<column name="VenueID" type="INT" jt="4" mandatory="y" />
 			<column name="TierID" type="INT" jt="4" mandatory="y" />
 			<column name="SourceID" type="INT" jt="4" mandatory="y" />
-			<column name="DateID" type="INT" jt="4" mandatory="y" />
 			<column name="StatusID" type="INT" jt="4" mandatory="y" />
 			<column name="ClosingInsideBidPrice" type="DECIMAL" length="11" decimal="5" jt="3" />
 			<column name="ClosingInsideAskPrice" type="DECIMAL" length="11" decimal="5" jt="3" />
@@ -43,8 +40,20 @@
 			<column name="BFCMmid" type="INT" jt="4" />
 			<column name="ClosingBestBid" type="DECIMAL" length="11" decimal="5" jt="3" />
 			<column name="ClosingBestAsk" type="DECIMAL" length="11" decimal="5" jt="3" />
+			<column name="ClosingInsideBidPriceDate" prior="Hour" type="DATE" jt="91" mandatory="y" />
+			<column name="ClosingInsideAskPriceDate" prior="Day" type="DATE" jt="91" mandatory="y" />
+			<column name="PreviousCloseDate" prior="Month" type="DATE" jt="91" mandatory="y" />
+			<column name="ClosingBestBidDate" prior="Year" type="DATE" jt="91" mandatory="y" />
+			<column name="ClosingBestAskDate" type="DATE" jt="91" mandatory="y" />
+			<column name="ShortInterestDate" type="DATE" jt="91" mandatory="y" />
 			<index name="pk_FactsTable" unique="PRIMARY_KEY" >
 				<column name="SECID" />
+				<column name="ClosingInsideBidPriceDate" />
+				<column name="ClosingInsideAskPriceDate" />
+				<column name="PreviousCloseDate" />
+				<column name="ClosingBestBidDate" />
+				<column name="ClosingBestAskDate" />
+				<column name="ShortInterestDate" />
 			</index>
 			<index name="unq_TierID" unique="UNIQUE_INDEX" >
 				<column name="TierID" />
@@ -58,13 +67,43 @@
 			<index name="unq_StatusID" unique="UNIQUE_INDEX" >
 				<column name="StatusID" />
 			</index>
-			<index name="unq_DateID" unique="UNIQUE_INDEX" >
-				<column name="DateID" />
-			</index>
+			<fk name="fk_FactsTable_Security" to_schema="OTC_db.INSTANCE" to_table="Security" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="SECID" pk="SECID" />
+			</fk>
+			<fk name="fk_FactsTable_Venue" to_schema="OTC_db.INSTANCE" to_table="Venue" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="VenueID" pk="VenueID" />
+			</fk>
+			<fk name="fk_FactsTable_Tier" to_schema="OTC_db.INSTANCE" to_table="Tier" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="TierID" pk="TierID" />
+			</fk>
+			<fk name="fk_FactsTable_Source" to_schema="OTC_db.INSTANCE" to_table="Source" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="SourceID" pk="SourceID" />
+			</fk>
+			<fk name="fk_FactsTable_Status" to_schema="OTC_db.INSTANCE" to_table="Status" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="StatusID" pk="StatusID" />
+			</fk>
+			<fk name="fk_FactsTable_Date_0" to_schema="OTC_db.INSTANCE" to_table="Date" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="ClosingInsideBidPriceDate" pk="DateID" />
+			</fk>
+			<fk name="fk_FactsTable_Date_1" to_schema="OTC_db.INSTANCE" to_table="Date" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="ClosingInsideAskPriceDate" pk="DateID" />
+			</fk>
+			<fk name="fk_FactsTable_Date_2" to_schema="OTC_db.INSTANCE" to_table="Date" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="PreviousCloseDate" pk="DateID" />
+			</fk>
+			<fk name="fk_FactsTable_Date_3" to_schema="OTC_db.INSTANCE" to_table="Date" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="ClosingBestBidDate" pk="DateID" />
+			</fk>
+			<fk name="fk_FactsTable_Date_4" to_schema="OTC_db.INSTANCE" to_table="Date" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="ClosingBestAskDate" pk="DateID" />
+			</fk>
+			<fk name="fk_FactsTable_Date_5" to_schema="OTC_db.INSTANCE" to_table="Date" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="ShortInterestDate" pk="DateID" />
+			</fk>
 		</table>
 		<table name="Security" prior="Entity" >
 			<column name="SECID" type="INT" jt="4" mandatory="y" />
-			<column name="TradingSymbol" type="CHAR" length="10" jt="1" mandatory="y" />
+			<column name="TradingSymbol" type="CHAR" length="10" jt="1" />
 			<column name="CUSIP" type="CHAR" length="9" jt="1" />
 			<column name="Issue" type="CHAR" length="9" jt="1" />
 			<column name="SecType" type="VARCHAR" length="75" jt="12" />
@@ -80,9 +119,6 @@
 			<index name="unq_SECID" unique="UNIQUE_INDEX" >
 				<column name="SECID" />
 			</index>
-			<fk name="fk_security_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
-				<fk_column name="SECID" pk="SECID" />
-			</fk>
 		</table>
 		<table name="Source" prior="Entity" >
 			<column name="SourceID" type="INT" jt="4" mandatory="y" />
@@ -93,9 +129,6 @@
 			<index name="pk_Source" unique="PRIMARY_KEY" >
 				<column name="SourceID" />
 			</index>
-			<fk name="fk_source_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
-				<fk_column name="SourceID" pk="SourceID" />
-			</fk>
 		</table>
 		<table name="Status" prior="Entity" >
 			<column name="StatusID" type="INT" jt="4" mandatory="y" />
@@ -105,9 +138,6 @@
 			<index name="pk_Status" unique="PRIMARY_KEY" >
 				<column name="StatusID" />
 			</index>
-			<fk name="fk_status_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
-				<fk_column name="StatusID" pk="StatusID" />
-			</fk>
 		</table>
 		<table name="Tier" prior="Entity" >
 			<column name="TierID" type="INT" jt="4" mandatory="y" />
@@ -116,18 +146,12 @@
 			<index name="pk_Tier" unique="PRIMARY_KEY" >
 				<column name="TierID" />
 			</index>
-			<fk name="fk_tier_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
-				<fk_column name="TierID" pk="TierID" />
-			</fk>
 		</table>
 		<table name="Venue" prior="Entity" >
 			<column name="VenueID" type="INT" jt="4" mandatory="y" />
 			<index name="pk_Venue" unique="PRIMARY_KEY" >
 				<column name="VenueID" />
 			</index>
-			<fk name="fk_venue_factstable" to_schema="OTC_db.INSTANCE" to_table="FactsTable" type="Identifying" mandatory="y" cardinality="ZeroMore" range_from="0" range_to="0" >
-				<fk_column name="VenueID" pk="VenueID" />
-			</fk>
 		</table>
 	</schema>
 	<layout name="Default Layout" id="Layout-2082" show_relation="columns" >
