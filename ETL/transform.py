@@ -9,7 +9,7 @@ Original file is located at
 
 
 
-pip install boto3
+#!pip install boto3
 
 import pandas as pd
 import boto3
@@ -18,13 +18,14 @@ import os
 try:
   import s3fs
 except:
-  !pip install s3fs
+  #!pip install s3fs
+  i=0
 
 # Set your AWS credentials and S3 bucket information
 aws_access_key_id = 'xyz'
 aws_secret_access_key = 'xyz'
 bucket_name = 'bucket-name'
-file_key = 'path/to/data.csv
+file_key = 'path/to/data.csv'
 
 # Create an S3 client
 s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
