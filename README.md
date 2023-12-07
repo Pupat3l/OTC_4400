@@ -31,7 +31,9 @@ OTC Market Data was provided by our professor who has permission to access it (t
 Our data size is around 4 GB - this suggests that there is a lot to analyze and can be used to make informed decisions on investments. However, due to cost limitations (and computational resources), processing this amount of data is challenging. It requires more storage space and computing power to extract & transform this data. 
 
 ## Methods
-- Dimensional Modeling: creating a fact & dimension tables to model our data and to help us better understand the relationships between them. 
+- Dimensional Modeling: creating a fact & dimension tables to model our data and to help us better understand the relationships between them.
+- The DbSchema can be found [Here](https://github.com/Pupat3l/OTC_440/blob/main/DbSchema/OTC.dbs)
+Diagram: ![Dbschema](https://github.com/Pupat3l/OTC_440/blob/main/DbSchema/DbSchema.jpeg) 
 
   
 - Extract, Transform, Load (ETL) Processes for Data Integration
