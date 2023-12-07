@@ -33,7 +33,8 @@ Our data size is around 4 GB - this suggests that there is a lot to analyze and 
 ## Methods
 - Dimensional Modeling: creating a fact & dimension tables to model our data and to help us better understand the relationships between them.
 - The DbSchema can be found [Here](https://github.com/Pupat3l/OTC_440/blob/main/DbSchema/OTC.dbs)
-Diagram: ![Dbschema](https://github.com/Pupat3l/OTC_440/blob/main/DbSchema/DbSchema.jpeg) 
+
+<img width="632" alt="DbSchema" src=https://github.com/Pupat3l/OTC_4400/blob/main/DbSchema/DbSchema.jpeg>
 
   
 - Extract, Transform, Load (ETL) Processes for Data Integration
