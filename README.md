@@ -35,6 +35,9 @@ Our data size is around 4 GB - this suggests that there is a lot to analyze and 
 
   
 - Extract, Transform, Load (ETL) Processes for Data Integration
+  Diagram:
+  <img width="632" alt="Screenshot 2023-12-07 at 1 07 37 PM" src="https://github.com/Pupat3l/OTC_4400/assets/42002045/cddff691-aabf-4c1f-9838-7f7f2521bd97">
+
 ### Extract:
 - Python & Boto3 was used to upload our data from our local file system to Amazon Web Services Storage (S3)
   [Extract.py script](https://github.com/Pupat3l/OTC_4400/blob/main/Extract.py)
