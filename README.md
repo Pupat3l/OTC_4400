@@ -51,6 +51,11 @@ Our data size is around 4 GB - this suggests that there is a lot to analyze and 
 
 - We loaded our data into Amazon Web Services Datawarehouse (AWS Redshift Serverless), we had a predefined schema because of our dbSchema.
 
+### Visualization:
+
+- We utilized Tableau to create visualizations using csv as the serving data.
+- 
+
 
 ## Tools 
 
