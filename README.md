@@ -32,6 +32,7 @@ Our data size is around 4 GB - this suggests that there is a lot to analyze and 
 
 ## Methods
 - Dimensional Modeling: creating a fact & dimension tables to model our data and to help us better understand the relationships between them. 
+
   
 - Extract, Transform, Load (ETL) Processes for Data Integration
 ### Extract:
@@ -42,10 +43,18 @@ Our data size is around 4 GB - this suggests that there is a lot to analyze and 
 - Python & Boto3 (Python was used to transform our data, making sure all data types matched our schema & dropping anything unneccesary). We utilized Pandas to make any transformations (split up the original CSV file into dimensions) & then uploaded the individual dimensions back to S3 in CSV format.
   [transform.py script](https://github.com/Pupat3l/OTC_4400/blob/main/transform.py)
 
-### Load: ![image](https://github.com/Pupat3l/OTC_4400/assets/42002045/194eecc6-a098-4561-8967-7d66980c9314)
+### Load: 
 
 
 - We loaded our data into Amazon Web Services Datawarehouse (AWS Redshift Serverless), we had a predefined schema because of our dbSchema.
+
+
+## Tools 
+
+- Data Storage: AWS S3
+- Data Processing: Python Scripts
+- Visualization: Tableau  
+- Data Orchestration [Work in Progress]: Automating data pipeline using Talend
 
 ## Getting Started
 ### Prerequisites
