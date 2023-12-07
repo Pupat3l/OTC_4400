@@ -57,7 +57,7 @@ Our data size is around 4 GB - this suggests that there is a lot to analyze and 
 ### Visualization:
 
 - We utilized Tableau to create visualizations using csv as the serving data.
-- The Tableau workbook is uploaded [here](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/OTC_Engineers.twbx)
+- The Tableau workbook is uploaded [here](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/OTC_Engineers.twb)
 - Following are the visualization created:
 
 #### Price Change over time
@@ -65,7 +65,7 @@ Our data size is around 4 GB - this suggests that there is a lot to analyze and 
 - We created a visualization using Closing Best Ask Date and Price Change(calculation created in Tableau - Last Price - Open Price).
 - The visualization shows the price change for each commodity in OTC Market over time in months(1-12)
 - As you can see, December has the most negative price change and June has the most positive. Periodically Earnings report could be a reason for this change.
-- 
+  
 ### Share Volume over time
 ![Visualization 2](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/Share_Volume.png)
 - We created a visualization using Avg. Share Volume and Closing Inside Ask Price Date.
