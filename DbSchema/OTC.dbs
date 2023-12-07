@@ -2,11 +2,12 @@
 <project name="OTC_db" id="Project-20bb" database="LogicalDesign" >
 	<schema name="INSTANCE" catalogname="OTC_db" >
 		<table name="Date" prior="Entity" >
-			<column name="DateID" type="INT" jt="4" mandatory="y" />
-			<column name="Hour" prior="ClosingInsideBidPriceDate" type="DATE" jt="91" />
-			<column name="Day" prior="ClosingInsideAskPriceDate" type="DATE" jt="91" />
-			<column name="Month" prior="PreviousCloseDate" type="DATE" jt="91" />
-			<column name="Year" prior="ClosingBestBidDate" type="DATE" jt="91" />
+			<column name="DateID" type="DATE" jt="91" mandatory="y" />
+			<column name="Hour" prior="ClosingInsideBidPriceDate" type="INT" jt="4" />
+			<column name="Day" prior="ClosingInsideAskPriceDate" type="INT" jt="4" />
+			<column name="Month" prior="PreviousCloseDate" type="INT" jt="4" />
+			<column name="Year" prior="ClosingBestBidDate" type="INT" jt="4" />
+			<column name="Minutes" type="INT" jt="4" />
 			<index name="pk_Date" unique="PRIMARY_KEY" >
 				<column name="DateID" />
 			</index>
@@ -154,15 +155,6 @@
 			</index>
 		</table>
 	</schema>
-	<layout name="Default Layout" id="Layout-2082" show_relation="columns" >
-		<callout x="51" y="51" pointer="Round" >
-			<comment><![CDATA[This is a layout - a diagram with tools.
-- Create new entities by right-clicking the layout. 
-- Double-click entity headers to edit.
-- For a better understanding of the schema, create multiple layouts.
-- Deploy the model into the database by converting it first to the physical design.]]></comment>
-		</callout>
-	</layout>
 	<layout name="OTC" id="Layout-fe5" show_relation="columns" >
 		<entity schema="OTC_db.INSTANCE" name="Date" color="C1D8EE" x="68" y="408" />
 		<entity schema="OTC_db.INSTANCE" name="FactsTable" color="C1D8EE" x="391" y="306" />
