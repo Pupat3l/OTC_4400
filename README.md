@@ -41,22 +41,52 @@ Our data size is around 4 GB - this suggests that there is a lot to analyze and 
 ### Extract:
 - Professor provided us the data source in the .CSV format.
 - Python & Boto3 was used to upload our data from our local file system to Amazon Web Services Storage (S3)
-  [Extract.py script](https://github.com/Pupat3l/OTC_4400/blob/main/Extract.py)
+  [Extract.py script](https://github.com/Pupat3l/OTC_4400/blob/main/ETL/Extract.py)
 
 ### Transform: 
 - Python & Boto3 (Python was used to transform our data, making sure all data types matched our schema & dropping anything unneccesary). We utilized Pandas to make any transformations (split up the original CSV file into dimensions) & then uploaded the individual dimensions back to S3 in CSV format.
-  [transform.py script](https://github.com/Pupat3l/OTC_4400/blob/main/transform.py)
+  [transform.py script](https://github.com/Pupat3l/OTC_4400/blob/main/ETL/transform.py)
 
 ### Load: 
 
 
 - We loaded our data into Amazon Web Services Datawarehouse (AWS Redshift Serverless), we had a predefined schema because of our dbSchema.
+- We performed combination of both drag and drop and automation to upload dimensions files to Datawarehouse from s3 bucket.
+  [load.py_script](https://github.com/Pupat3l/OTC_4400/blob/main/ETL/load.py)
 
 ### Visualization:
 
 - We utilized Tableau to create visualizations using csv as the serving data.
-- 
+- The Tableau workbook is uploaded [here](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/OTC_Engineers.twbx)
+- Following are the visualization created:
 
+#### Price Change over time
+![Visualization 1](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/Price_Change.png)
+- We created a visualization using Closing Best Ask Date and Price Change(calculation created in Tableau - Last Price - Open Price).
+- The visualization shows the price change for each commodity in OTC Market over time in months(1-12)
+- As you can see, December has the most negative price change and June has the most positive. Periodically Earnings report could be a reason for this change.
+- 
+### Share Volume over time
+![Visualization 2](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/Share_Volume.png)
+- We created a visualization using Avg. Share Volume and Closing Inside Ask Price Date.
+- The visualization shows Avg. Share Volume for each commodity in OTC Market over time in years. The y-axis is a logarithmic scale to view the data points better and the data can spread out more.
+- As you can see, there is an upward trend for share volume over years which indicates that the market interest is growing.
+
+### Bid-Ask spread over time
+![Visualization 3](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/Bid-Ask_spread.png)
+- We created a visualization using Closing Bid-Ask(calcualtion created in Tableau - Closing Bid Price - Closing Ask Price) and Closing Best Bid Date.
+- The visualization shows the Bid-Ask spread of each commodity in OTC Market over time in terms of days/month.
+- As you can see the values are negative which determines that people are good at negotiations. It also shows that on 8th day of the month, negotations are the best.
+
+### Trading Volume vs Price Change over time
+![Visualization 4](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/Trading_Volume_vs_Price_Change.png)
+- We created visualization using Price Change and Avg. Share Volume and Previous Close Date.
+- The visualization shows the Avg. Share volume and Price Change for each commodity in OTC market over time in terms of years.
+- As you can see Avg. Share volume and last price are moving in the same direction indicates a increasing demand of shares and market confidence.
+
+### Dashboard combining all visualization
+![Visualization 5](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/Dashboard.png)
+- The Dashboard is an interactive visualization that shows real-time updates of all 4 visualization from above. There is also a filer in place for Status and Venue which helps visualize trends on different combinations of statuses and venues.
 
 ## Tools 
 
