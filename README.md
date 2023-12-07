@@ -1,44 +1,58 @@
 # OTC Engineers 
 # Data Warehousing Project
 Group members - Pujan Patel, Samantha Soto, and Sanjit Guliani
+
+![image](https://github.com/Pupat3l/OTC_4400/assets/42002045/b7acb117-5d92-4214-be32-ab85c030c0e1)
+
 ## Description
-This project is a data warehousing solution designed to consolidate, transform, and store large volumes of data from various sources for analytical purposes. It aims to provide a centralized repository for business intelligence and reporting.
+This project is a data warehousing solution designed to consolidate, transform, and store large volumes of OTC market data for analytical purposes. It aims to provide a centralized repository for business intelligence and reporting.
 
-## Table of Contents
-- [Features](#features)
-- [Architecture](#architecture)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+## Business Problem 
 
-## Features
-- Extract, Transform, Load (ETL) processes for data integration.
-- Support for various data sources, including databases, APIs, and flat files.
-- Data modeling and schema design for optimal query performance.
-- Scheduled data refresh and automation.
-- Integration with analytics and reporting tools.
+The Over-The-Counter (OTC) market refers to a decentralized trading environment, distinct from formal exchanges such as the NYSE or NASDAQ. It's a network where financial instruments, such as stocks, bonds, and derivatives, are traded directly between two parties without the oversight of an exchange. The OTC market is known to lack transparency & regulations; these variables can definitely contribute to higher potential returns but also comes with increased risks for buyers. 
 
-## Architecture
-The data warehousing project follows a star schema architecture with a central data warehouse and surrounding data marts. It leverages [ETL tool] for data integration and [Database System] for storage.
 
-![Architecture Diagram](docs/architecture.png)
+
+## Business Impact
+
+- Risks: Handling financial data is particularly tricky because we need to ensure strict secuirty measures to protect against data breaches and maintain privacy.
+- Costs: OTC market data constantly updates. To handle constant updates, a robust IT infrastructure is needed, which can handle high volumes of data transactions in real-time. Significant amounts of storage is needed & it needs to be protected.
+- Benefits: Analyzing the OTC market data can influence improved decision making processes and strategy developments for investors. Processing this data & storing it in a datawarehouse can act as a centralized repository for market data, including transaction prices, volumes, and counterparty details. This enhances transparency in price discovery. Further, analysts & stakeholders can look at historical data to discover patterns and they can further improve their investment strategies and risk management.  
+  - A successful implementation of the datawarehouse & analysis capabilities can improve decision making effiency by 5-10%. This can increase a company's profits due to better trading & investment decisions. 
+
+## Business Persona 
+
+As mentioned, many can benefit from having access to this data in a centralized repository. Financial analysts and economists can use their data to forecast market trends, and advise on investments. This tool will also be immensely helpful to portfolio managers & traders who are the key decision makers and execute traders. This allows for real-time decision making, assessing risk more seamlessly -- this should lead to higher returns and effective portfolio diversification. 
+
+## The Data 
+
+OTC Market Data was provided by our professor who has permission to access it (the data is from OTC Markets Group). OTC Markets Group is an organization that specializes in collecting & distributing financial data for the OTC markets. The data we utilized for this project include the information on the securities and companies along with details on where these securities were traded. It also holds pricing information such as the closing bid & ask prices with their respective dates. 
+
+Our data size is around 4 GB - this suggests that there is a lot to analyze and can be used to make informed decisions on investments. However, due to cost limitations (and computational resources), processing this amount of data is challenging. It requires more storage space and computing power to extract & transform this data. 
+
+## Methods
+- Dimensional Modeling: creating a fact & dimension tables to model our data and to help us better understand the relationships between them. 
+  
+- Extract, Transform, Load (ETL) Processes for Data Integration
+### Extract:
+- Python & Boto3 was used to upload our data from our local file system to Amazon Web Services Storage (S3)
+  [Extract.py script](https://github.com/Pupat3l/OTC_4400/blob/main/Extract.py)
+
+### Transform: 
+- Python & Boto3 (Python was used to transform our data, making sure all data types matched our schema & dropping anything unneccesary). We utilized Pandas to make any transformations (split up the original CSV file into dimensions) & then uploaded the individual dimensions back to S3 in CSV format.
+  [transform.py script](https://github.com/Pupat3l/OTC_4400/blob/main/transform.py)
+
+### Load: ![image](https://github.com/Pupat3l/OTC_4400/assets/42002045/194eecc6-a098-4561-8967-7d66980c9314)
+
+
+- We loaded our data into Amazon Web Services Datawarehouse (AWS Redshift Serverless), we had a predefined schema because of our dbSchema.
 
 ## Getting Started
 ### Prerequisites
-- [Java](https://www.java.com/) installed
-- [ETL Tool](link-to-etl-tool) installed
-- [Database System](link-to-database) installed
+- [Python](https://www.python.com/) installed
+- [Boto3] installed
+- [Amazon S3] access
+- [Amazon Redshift Serverless] access
+- [Psycopg2] installed
 
-### Installation
-1. Clone the repository.
-2. Configure the ETL tool with the provided configuration file (`etl-config.yaml`).
-3. Create the necessary database tables using the provided SQL scripts (`scripts/create_tables.sql`).
 
-## Usage
-To run the ETL process and update the data warehouse:
-
-```bash
-./run_etl.sh
