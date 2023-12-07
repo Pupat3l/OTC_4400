@@ -73,13 +73,13 @@ Our data size is around 4 GB - this suggests that there is a lot to analyze and 
 - As you can see, there is an upward trend for share volume over years which indicates that the market interest is growing.
 
 ### Bid-Ask spread over time
-![Visualization 3](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/Bid-Ask_spread.png)
+![Visualization 3](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/Bid_Ask_spread.png)
 - We created a visualization using Closing Bid-Ask(calcualtion created in Tableau - Closing Bid Price - Closing Ask Price) and Closing Best Bid Date.
 - The visualization shows the Bid-Ask spread of each commodity in OTC Market over time in terms of days/month.
 - As you can see the values are negative which determines that people are good at negotiations. It also shows that on 8th day of the month, negotations are the best.
 
 ### Trading Volume vs Price Change over time
-![Visualization 4](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/Trading_Volume_vs_Price_Change.png)
+![Visualization 4](https://github.com/Pupat3l/OTC_4400/blob/main/Tableau/Trading_Volume_vs_Price_Changes.png)
 - We created visualization using Price Change and Avg. Share Volume and Previous Close Date.
 - The visualization shows the Avg. Share volume and Price Change for each commodity in OTC market over time in terms of years.
 - As you can see Avg. Share volume and last price are moving in the same direction indicates a increasing demand of shares and market confidence.
