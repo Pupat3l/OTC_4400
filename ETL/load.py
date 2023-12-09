@@ -1,45 +1,82 @@
+# %% import necessary library
 import boto3
 import psycopg2
- 
-# AWS credentials and other details
-aws_access_key_id = 'xyz'
-aws_secret_access_key = 'xyz'
-bucket_name = 'bucket-name'
-s3_file_path = 'path/to/s3/file'
-redshift_role_arn = 'a'
- 
+from botocore.exceptions import ClientError
+
+# %%
+bucket_name = "bucket-name"
+folder_path = "cleaned/"
+access_key = 'key'
+secret_key = 'key'
+
+# %%
+# Create an S3 client
+s3=boto3.client('s3',aws_access_key_id=access_key,aws_secret_access_key=secret_key)
+
+# List objects in the specified folder
+response = s3.list_objects_v2(
+    Bucket=bucket_name,
+    Prefix=folder_path
+)
+
+# Extract file names from the response
+file_names = [obj['Key'] for obj in response.get('Contents', [])]
+file_names
+
+# %%
 # Redshift Serverless connection details
-endpoint = 'redshift/enpoint/url'
+endpoint = 'endpoint'
 port = '5439'  # default Redshift port
-database = 'dev'
-user = 'admin'
+database = 'db'
+user = 'admin-user'
 password = 'password'
- 
-# Setting the connection timeout (in seconds)
-timeout = 60  # for example, 60 seconds
- 
-# Connection string with timeout
+timeout=60
+
+# %%
 conn_string = f"dbname='{database}' user='{user}' host='{endpoint}' password='{password}' port='{port}' connect_timeout={timeout}"
- 
-# Connect to Redshift
+
+# %%
 conn = psycopg2.connect(conn_string)
- 
-# Create a cursor object using the connection
-cur = conn.cursor()
- 
-# SQL COPY command to load data from S3 to Redshift under the 'OTC market' schema, do it for all individual files
-copy_cmd = f"""
-COPY ____
-FROM 's3://{bucket_name}/{s3_file_path}'
-CREDENTIALS 'aws_access_key_id={aws_access_key_id};aws_secret_access_key={aws_secret_access_key}'
-FORMAT AS CSV;
-"""
- 
-# Assuming you already have a connection and cursor (conn and cur) established
-cur.execute(copy_cmd)
-conn.commit()
- 
- 
-# Close the cursor and connection
-cur.close()
+
+# %%
+def load_data(copy_cmd):
+    # Assuming you already have a connection and cursor (conn and cur) established
+    # inserted try block to avoid errors
+    cur = conn.cursor()
+    try:
+        cur.execute(copy_cmd)
+        conn.commit()
+    except Exception as e:
+        print(f"Error: {e}")
+        conn.rollback()
+    finally:
+        cur.close()
+
+# %%
+schema="schema"
+region="region"
+iam_role='role_arn'
+
+# %%
+for i in file_names:
+    slash=i.index('/')+1
+    dot=i.index('.')
+    table=i[slash:dot]
+    print(table)
+    copy_cmd = f"""
+    COPY {database}.{schema}.{table}
+    FROM 's3://{bucket_name}/{i}'
+    IAM_ROLE '{iam_role}'
+    FORMAT AS CSV DELIMITER ',' QUOTE '"' IGNOREHEADER 1 REGION AS '{region}';
+    """
+    print('Start Loading')
+    print(copy_cmd)
+    load_data(copy_cmd)
+    print('SUCCESS')
+
+    
+
+# %%
 conn.close()
+
+
