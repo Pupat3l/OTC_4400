@@ -28,6 +28,8 @@ As mentioned, many can benefit from having access to this data in a centralized 
 
 OTC Market Data was provided by our professor who has permission to access it (the data is from OTC Markets Group). OTC Markets Group is an organization that specializes in collecting & distributing financial data for the OTC markets. The data we utilized for this project include the information on the securities and companies along with details on where these securities were traded. It also holds pricing information such as the closing bid & ask prices with their respective dates. 
 
+Dictionary can be found on the GitHub [here](https://github.com/Pupat3l/OTC_4400/blob/main/dictionary.pdf)
+
 Our data size is around 4 GB - this suggests that there is a lot to analyze and can be used to make informed decisions on investments. However, due to cost limitations (and computational resources), processing this amount of data is challenging. It requires more storage space and computing power to extract & transform this data. 
 
 ## Methods
