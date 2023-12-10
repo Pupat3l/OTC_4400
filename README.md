@@ -4,6 +4,8 @@ Group members - Pujan Patel, Samantha Soto, and Sanjit Guliani
 
 ![image](https://github.com/Pupat3l/OTC_4400/assets/42002045/b7acb117-5d92-4214-be32-ab85c030c0e1)
 
+Slides can be found [Here](https://github.com/Pupat3l/OTC_4400/blob/main/slides.pptx)
+
 ## Description
 This project is a data warehousing solution designed to consolidate, transform, and store large volumes of OTC market data for analytical purposes. It aims to provide a centralized repository for business intelligence and reporting.
 
